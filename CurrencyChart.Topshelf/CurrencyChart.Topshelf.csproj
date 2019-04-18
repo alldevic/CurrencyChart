@@ -42,15 +42,26 @@
         </Reference>
         <Reference Include="System" />
         <Reference Include="System.Configuration" />
+        <Reference Include="System.Configuration.Install" />
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
         <Reference Include="System.IO.Compression" />
         <Reference Include="System.Runtime.Serialization" />
         <Reference Include="System.ServiceModel" />
+        <Reference Include="System.ServiceProcess" />
         <Reference Include="System.Transactions" />
         <Reference Include="System.Xml" />
+        <Reference Include="Topshelf, Version=4.2.0.194, Culture=neutral, PublicKeyToken=b800c4cfcdeea87b">
+          <HintPath>..\packages\Topshelf.4.2.0\lib\net452\Topshelf.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Topshelf.NLog, Version=4.2.0.194, Culture=neutral, PublicKeyToken=b800c4cfcdeea87b">
+          <HintPath>..\packages\Topshelf.NLog.4.2.0\lib\net452\Topshelf.NLog.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="CurrencyChartService.cs" />
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>

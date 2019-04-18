@@ -1,15 +1,29 @@
-﻿using System;
-using NLog;
+﻿using Topshelf;
 
 namespace CurrencyChart.Topshelf
 {
     internal class Program
     {
-        static readonly Logger  Log = LogManager.GetCurrentClassLogger();
         public static void Main(string[] args)
         {
-            Log.Info("Hello world!");
-            Console.ReadKey();
+            var host = HostFactory.New(x =>
+            {
+                x.UseNLog();
+
+                x.Service<CurrencyChartService>(s =>
+                {
+                    s.ConstructUsing(settings => new CurrencyChartService());
+                    s.WhenStarted(service => service.Start());
+                    s.WhenStopped(service => service.Stop());
+                });
+                x.StartAutomatically();
+                x.SetServiceName("curchartsvc");
+                x.SetDisplayName("CurrencyChart Server");
+                x.SetDescription("CurrencyChart for Hackathon Light 2019");
+                x.RunAsNetworkService();
+            });
+
+            host.Run();
         }
     }
 }

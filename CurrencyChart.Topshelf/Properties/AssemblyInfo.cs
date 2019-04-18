@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("CurrencyChart.Topshelf")]
-[assembly: AssemblyDescription("CUrrencyChart for Hackathon Light 2019")]
+[assembly: AssemblyDescription("CurrencyChart for Hackathon Light 2019")]
 [assembly: AssemblyProduct("CurrencyChart")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 
