@@ -1,19 +1,20 @@
-using NLog;
+using System;
+using CurrencyChart.Core;
 
 namespace CurrencyChart.Topshelf
 {
     public class CurrencyChartService
     {
-        private Logger _log = LogManager.GetCurrentClassLogger();
-        public void Start()
+        private IDisposable _owin;
+
+        public void Start(string url)
         {
-            _log.Info("Server started");
+            _owin = Startup.Start(url);
         }
 
         public void Stop()
         {
-            _log.Info("Server stopped");
-
+            _owin?.Dispose();
         }
     }
 }

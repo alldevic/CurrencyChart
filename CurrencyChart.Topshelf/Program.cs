@@ -6,6 +6,8 @@ namespace CurrencyChart.Topshelf
     {
         public static void Main(string[] args)
         {
+            var url = "http://+:8080";
+            
             var host = HostFactory.New(x =>
             {
                 x.UseNLog();
@@ -13,7 +15,7 @@ namespace CurrencyChart.Topshelf
                 x.Service<CurrencyChartService>(s =>
                 {
                     s.ConstructUsing(settings => new CurrencyChartService());
-                    s.WhenStarted(service => service.Start());
+                    s.WhenStarted(service => service.Start(url));
                     s.WhenStopped(service => service.Stop());
                 });
                 x.StartAutomatically();
