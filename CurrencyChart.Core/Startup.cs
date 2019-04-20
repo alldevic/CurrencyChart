@@ -36,7 +36,7 @@ namespace CurrencyChart.Core
                     RequestPath = new PathString("/scripts"),
                     FileSystem = new PhysicalFileSystem("scripts")
                 })
-                .MapHubs(hubConfig)
+                .MapSignalR(hubConfig)
                 .UseNancy(cfg => cfg.Bootstrapper = sampleBootstrapper);
         }
 
