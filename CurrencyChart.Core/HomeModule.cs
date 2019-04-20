@@ -6,7 +6,7 @@ namespace CurrencyChart.Core
     {
         public HomeModule()
         {
-            Get["/"] = _ => "Hello world!";
+            Get["/"] = _ => View["views/chat.html"];
         }
     }
 }
