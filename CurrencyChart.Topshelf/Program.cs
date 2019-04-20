@@ -7,7 +7,7 @@ namespace CurrencyChart.Topshelf
         public static void Main(string[] args)
         {
             var url = "http://+:8080";
-            
+
             var host = HostFactory.New(x =>
             {
                 x.UseNLog();

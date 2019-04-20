@@ -8,14 +8,16 @@ namespace CurrencyChart.Core
     public class Chat : Hub
     {
         private readonly LiteRepository _documentStore;
+
         public Chat(LiteRepository documentStore)
         {
             _documentStore = documentStore;
         }
+
         public void Send(string message)
         {
             Clients.All.addMessage(message);
-           _documentStore.Insert(new ChatMessage{Created = DateTime.UtcNow, Message = message}, "messages");
+            _documentStore.Insert(new ChatMessage {Created = DateTime.UtcNow, Message = message});
         }
     }
 }

@@ -6,7 +6,6 @@ using Microsoft.Owin;
 using Microsoft.Owin.FileSystems;
 using Microsoft.Owin.Hosting;
 using Microsoft.Owin.StaticFiles;
-using NLog;
 using Owin;
 
 [assembly: OwinStartup(typeof(Startup))]
@@ -43,7 +42,7 @@ namespace CurrencyChart.Core
 
         public static IDisposable Start(string url)
         {
-            var db = new LiteDatabase(@"MyData.db");
+            var db = new LiteDatabase(@"storage.db");
             var rep = new LiteRepository(db, true);
             return WebApp.Start(url, app => new Startup(rep).Configuration(app));
         }
