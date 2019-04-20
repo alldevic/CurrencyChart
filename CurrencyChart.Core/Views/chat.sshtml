@@ -10,8 +10,8 @@
     $(function () {
         var chat = $.connection.chat;
 
-        chat.client.addMessage = function (message) {
-            $('#messages').append('<li>' + message + '</li>');
+        chat.client.addMessage = function (time, message) {
+            $('#messages').append('<tr><td>' + time + '</td><td>'+ message + '</td></tr>');
         };
 
         $.connection.hub.start().done(function () {
@@ -23,10 +23,26 @@
     });
 </script>
 <h3>Welcome to Chat</h3>
+
+<table border="1" id="messages">
+    <thead>
+    <tr>
+        <td><b>Time</b></td>
+        <td><b>Message</b></td>
+    </tr>
+    </thead>
+
+    @Each.Messages
+    <tr>
+        <td>@Current.Created</td>
+        <td>@Current.Message</td>
+    </tr>
+    @EndEach
+</table>
+
 <div>
     <input type="text" id="msg"/>
     <input type="button" id="broadcast" value="broadcast"/>
-    <ul id="messages"></ul>
 </div>
 </body>
 </html>

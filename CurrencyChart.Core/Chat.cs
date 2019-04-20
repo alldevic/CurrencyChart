@@ -16,8 +16,9 @@ namespace CurrencyChart.Core
 
         public void Send(string message)
         {
-            Clients.All.addMessage(message);
-            _documentStore.Insert(new ChatMessage {Created = DateTime.UtcNow, Message = message});
+            var time = DateTime.UtcNow;
+            Clients.All.addMessage(time, message);
+            _documentStore.Insert(new ChatMessage {Created = time, Message = message});
         }
     }
 }

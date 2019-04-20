@@ -9,15 +9,13 @@ namespace CurrencyChart.Core
     {
         public HomeModule(LiteRepository documentStore)
         {
-            Get["/"] = _ => View["views/chat.html"];
-            Get["/logs"] = ctx =>
+            Get["/"] = _ =>
             {
                 var model = new MessageLog(documentStore
                     .Fetch<ChatMessage>()
                     .OrderBy(d => d.Created).ToList());
 
-
-                return View["views/ChatLog.sshtml", model];
+                return View["views/chat.sshtml", model];
             };
         }
     }
