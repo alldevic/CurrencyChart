@@ -1,4 +1,5 @@
 using System;
+using System.Web.Hosting;
 using CurrencyChart.Core;
 using LiteDB;
 using Microsoft.AspNet.SignalR;
@@ -23,20 +24,20 @@ namespace CurrencyChart.Core
 
         public void Configuration(IAppBuilder app)
         {
-            var resolver = new DefaultDependencyResolver();
-            resolver.Register(typeof(Chat), () => new Chat(_documentStore));
-            var hubConfig = new HubConfiguration
-            {
-                Resolver = resolver,
-            };
+            GlobalHost.DependencyResolver = new DefaultDependencyResolver();
+            GlobalHost.DependencyResolver.Register(typeof(Chat), () => new Chat(_documentStore));
+            GlobalHost.DependencyResolver.Register(typeof(Chart), () => new Chart());
+            HostingEnvironment.RegisterObject(new ServerMessageBot());
+            HostingEnvironment.RegisterObject(new ChartDataUpdate());
             var sampleBootstrapper = new SampleBootstrapper(_documentStore);
+
             app
                 .UseFileServer(new FileServerOptions
                 {
                     RequestPath = new PathString("/scripts"),
                     FileSystem = new PhysicalFileSystem("scripts")
                 })
-                .MapSignalR(hubConfig)
+                .MapSignalR()
                 .UseNancy(cfg => cfg.Bootstrapper = sampleBootstrapper);
         }
 

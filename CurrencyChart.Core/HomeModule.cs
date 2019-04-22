@@ -9,7 +9,9 @@ namespace CurrencyChart.Core
     {
         public HomeModule(LiteRepository documentStore)
         {
-            Get["/"] = _ =>
+            Get["/"] = _ => View["views/chart.html"];
+
+            Get["/chat"] = _ =>
             {
                 var model = new MessageLog(documentStore
                     .Fetch<ChatMessage>()
