@@ -1,0 +1,46 @@
+image: Visual Studio 2017
+version: 0.0.{build}
+
+init:
+    - git config --global core.autocrlf input
+
+branches:
+  only:
+    - master
+
+clone_folder: c:\CurrencyChart
+shallow_clone: true
+
+matrix:
+    fast_finish: false
+
+platform:
+    - Any CPU
+
+configuration:
+    - Release
+
+environment:
+    matrix:
+        - TOOLCHAIN: msvc14
+
+before_build:
+    - nuget restore
+
+build_script:
+    - msbuild /p:Configuration=Release
+artifacts:
+  - path: Release.zip
+    name: zip
+
+deploy:
+  tag: $(APPVEYOR_REPO_TAG_NAME) 
+  description: "Release %APPVEYOR_REPO_TAG_NAME%"
+  provider: GitHub
+  auth_token:
+    secure: cxN2nBb9zspwcuAckFj/6KyRjL3qG192nYOawUKdYjauPl8P92GYupmV9YzYdRtf
+  artifact: zip
+  skip_tags: true
+  on:
+    branch: master
+    appveyor_repo_tag: true 
