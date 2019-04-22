@@ -29,8 +29,9 @@ before_build:
 
 build_script:
     - msbuild /p:Configuration=Release
+
 artifacts:
-  - path: Release.zip
+  - path: CurrencyChart.zip
     name: zip
 
 deploy:

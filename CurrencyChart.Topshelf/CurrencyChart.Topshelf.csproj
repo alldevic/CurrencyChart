@@ -112,6 +112,6 @@
         <ItemGroup>
             <ZipFiles Include="$(OutDir)\**\*.*" />
         </ItemGroup>
-        <Zip ZipFileName="$(OutDir)..\..\..\Release.zip" WorkingDirectory="$(OutDir)" Files="@(ZipFiles)" Flatten="False" Quiet="true" />
+        <Zip ZipFileName="$(OutDir)..\..\..\CurrencyChart.zip" WorkingDirectory="$(OutDir)" Files="@(ZipFiles)" Flatten="False" Quiet="true" />
     </Target>
 </Project>
