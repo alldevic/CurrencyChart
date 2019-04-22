@@ -104,7 +104,6 @@
     <ItemGroup>
         <Compile Include="Chart.cs" />
         <Compile Include="ChartDataUpdate.cs" />
-        <Compile Include="ServerMessageBot.cs" />
         <Compile Include="Chat.cs" />
         <Compile Include="HomeModule.cs" />
         <Compile Include="Models\ChatMessage.cs" />

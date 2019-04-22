@@ -1,17 +1,22 @@
-using System.Threading.Tasks;
+using LiteDB;
 using Microsoft.AspNet.SignalR;
 
 namespace CurrencyChart.Core
 {
     public class Chart : Hub
     {
+        private readonly LiteRepository _documentStore;
+
+        public Chart(LiteRepository documentStore)
+        {
+            _documentStore = documentStore;
+        }
+
         public void InitChartData()
         {
             var lineChart = new ChartNode();
             lineChart.SetLineChartData();
             Clients.All.UpdateChart(lineChart);
         }
-        
-        public Task SendValue(int value) => Clients.All.SendAsync("ReceiveValue", value);
     }
 }

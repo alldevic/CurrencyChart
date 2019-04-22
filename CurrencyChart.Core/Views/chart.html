@@ -24,9 +24,9 @@
 
         chartHub.client.updateChart = function (data) {
 
-            chartDatas[0].data.push(data.lineChartData);
-            chartDatas[1].data.push(data.lineChartData + 1);
-            chartDatas[2].data.push(data.lineChartData - 1);
+            chartDatas[0].data.push(data.lineChartData[0]);
+            chartDatas[1].data.push(data.lineChartData[1]);
+            chartDatas[2].data.push(data.lineChartData[2]);
             if (chartDatas[0].data.length > 10) {
                 chartDatas[0].data.splice(0, 1);
                 chartDatas[1].data.splice(0, 1);

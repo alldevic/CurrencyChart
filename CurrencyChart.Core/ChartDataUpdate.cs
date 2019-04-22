@@ -15,11 +15,16 @@ namespace CurrencyChart.Core
 
     public class ChartNode
     {
-        [JsonProperty("lineChartData")] private int _lineChartData;
+        [JsonProperty("lineChartData")] private int[] _lineChartData;
 
         public void SetLineChartData()
         {
-            _lineChartData = RandomNumberGenerator.RandomScalingFactor();
+            _lineChartData = new[]
+            {
+                RandomNumberGenerator.RandomScalingFactor(),
+                RandomNumberGenerator.RandomScalingFactor(),
+                RandomNumberGenerator.RandomScalingFactor()
+            };
         }
     }
 
