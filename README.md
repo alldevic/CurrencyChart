@@ -4,6 +4,7 @@
 
 - [CurrencyChart (Агрегация курсов валют)](#currencychart-%D0%B0%D0%B3%D1%80%D0%B5%D0%B3%D0%B0%D1%86%D0%B8%D1%8F-%D0%BA%D1%83%D1%80%D1%81%D0%BE%D0%B2-%D0%B2%D0%B0%D0%BB%D1%8E%D1%82)
   - [Условие](#%D1%83%D1%81%D0%BB%D0%BE%D0%B2%D0%B8%D0%B5)
+  - [Особенности решения](#%D0%BE%D1%81%D0%BE%D0%B1%D0%B5%D0%BD%D0%BD%D0%BE%D1%81%D1%82%D0%B8-%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D1%8F)
 
 ## Условие
 
@@ -26,3 +27,17 @@
 - Python/Django
 - SQLite
 - Heroku/PythonAnywhere
+
+## Особенности решения
+
+Решение представляет собой self-host сервер на .net framework 4.6.1. Реализован запуск как в виде консольного приложения, так и в качестве Windows Service. Используемый стек:
+
+- Topshelf
+- OWIN
+- Nancy
+- LiteDB
+- SignalR
+- chart.js
+- NLog
+
+Права администратора необходимы для запуска на http://+:8080
