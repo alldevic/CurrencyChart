@@ -13,33 +13,18 @@ namespace CurrencyChart.Core
 
         public static int randomScalingFactor()
         {
-            return rnd1.Next(100);
+            return rnd1.Next(10);
         }
 
-        public static int randomColorFactor()
-        {
-            return rnd1.Next(255);
-        }
     }
 
-    public class LineChart
+    public class ChartNode
     {
-        [JsonProperty("lineChartData")] private int[] _lineChartData;
-        [JsonProperty("colorString")] private string _colorString;
+        [JsonProperty("lineChartData")] private int _lineChartData;
 
         public void SetLineChartData()
         {
-            _lineChartData = new int[100];
-
-            for (int i = 0; i < 100; i++)
-            {
-                _lineChartData[i] = RandomNumberGenerator.randomScalingFactor();
-            }
-
-
-            _colorString = "rgba(" + RandomNumberGenerator.randomColorFactor() + "," +
-                           RandomNumberGenerator.randomColorFactor() + "," + RandomNumberGenerator.randomColorFactor() +
-                           ",.3)";
+            _lineChartData = RandomNumberGenerator.randomScalingFactor();
         }
     }
 
@@ -49,7 +34,7 @@ namespace CurrencyChart.Core
         private Timer _timer;
         private volatile bool _sendingChartData;
         private readonly object _chartUpateLock = new object();
-        LineChart lineChart = new LineChart();
+        ChartNode _chartNode = new ChartNode();
 
         public ChartDataUpdate()
         {
@@ -59,8 +44,8 @@ namespace CurrencyChart.Core
 
         private void StartTimer()
         {
-            var delayStartby = TimeSpan.FromSeconds(2);
-            var repeatEvery = TimeSpan.FromSeconds(5);
+            var delayStartby = TimeSpan.FromSeconds(1);
+            var repeatEvery = TimeSpan.FromMilliseconds(500);
 
             _timer = new Timer(BroadcastDataToClients, null, delayStartby, repeatEvery);
         }
@@ -80,8 +65,8 @@ namespace CurrencyChart.Core
                 }
 
                 _sendingChartData = true;
-                lineChart.SetLineChartData();
-                _chartHub.Clients.All.updateChart(lineChart);
+                _chartNode.SetLineChartData();
+                _chartHub.Clients.All.updateChart(_chartNode);
                 _sendingChartData = false;
             }
         }

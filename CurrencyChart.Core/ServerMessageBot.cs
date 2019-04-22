@@ -19,8 +19,8 @@ namespace CurrencyChart.Core
         }
         private void StartTimer()
         {
-            var delayStartby = TimeSpan.FromSeconds(2);
-            var repeatEvery = TimeSpan.FromSeconds(5);
+            var delayStartby = TimeSpan.FromSeconds(0);
+            var repeatEvery = TimeSpan.FromMilliseconds(500);
  
             _timer = new Timer(BroadcastUptimeToClients, null, delayStartby, repeatEvery);
         }

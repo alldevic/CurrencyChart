@@ -12,14 +12,22 @@
 <script>
     $(function () {
         var chartHub = $.connection.chart;
-        
+
         $.connection.hub.start().done(function () {
             chartHub.server.initChartData();
         });
 
         chartHub.client.updateChart = function (data) {
-            lineChartData.data.datasets[0].fillColor = data.colorString;
-            lineChartData.data.datasets[0].data = data.lineChartData;
+            lineChartData.data.datasets[0].data.push(data.lineChartData);
+            lineChartData.data.datasets[1].data.push(data.lineChartData + 1);
+            lineChartData.data.datasets[2].data.push(data.lineChartData - 1);
+            if (lineChartData.data.datasets[0].data.length > 10) {
+                lineChartData.data.datasets[0].data.splice(0, 1);
+                lineChartData.data.datasets[1].data.splice(0, 1);
+                lineChartData.data.datasets[2].data.splice(0, 1);
+
+
+            }
             var canvasForLineChart = document.getElementById("canvasForLineChart");
             var context2DLine = canvasForLineChart.getContext("2d");
             new Chart(context2DLine, lineChartData);
@@ -29,19 +37,37 @@
     var lineChartData = {
         type: "line",
         data: {
-            labels: ["1", "2", "3", "4", "5", "1", "2", "3", "4", "5", "1", "2", "3", "4", "5", "1", "2", "3", "4", "5", "1", "2", "3", "4", "5", "1", "2", "3", "4", "5", "1", "2", "3", "4", "5", "1", "2", "3", "4", "5", "1", "2", "3", "4", "5", "1", "2", "3", "4", "5", "1", "2", "3", "4", "5", "1", "2", "3", "4", "5", "1", "2", "3", "4", "5", "1", "2", "3", "4", "5", "1", "2", "3", "4", "5", "1", "2", "3", "4", "5", "1", "2", "3", "4", "5", "1", "2", "3", "4", "5", "1", "2", "3", "4", "5", "1", "2", "3", "4", "5",],
+            labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+            color: ["red", "green", "blue"],
             datasets: [
                 {
-                    fillColor: "",
-                    data: [0]
-                }
+                    label: "First",
+                    data: [0],
+                    fill: false,
+                    borderColor: '#4dc9f6'
+                },
+                {
+                    label: "Second",
+                    data: [0],
+                    fill: false,
+                    borderColor: '#f67019'
+                },
+                {
+                    label: "Third",
+                    data: [0],
+                    fill: false,
+                    borderColor: '#f53794'
+                },
             ]
+        },
+        options: {
+            animation: false
         }
     }
 </script>
 <table style="width: 50%">
     <tr>
-        <td style="width: 50%; text-align: center">
+        <td style="text-align: center">
             <canvas id="canvasForLineChart" height="200" width="400">Chart is Loading...</canvas>
         </td>
     </tr>
