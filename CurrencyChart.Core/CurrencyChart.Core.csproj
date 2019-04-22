@@ -98,9 +98,11 @@
         <Reference Include="System.Security" />
         <Reference Include="System.ServiceModel" />
         <Reference Include="System.Transactions" />
+        <Reference Include="System.Web" />
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="ServerMessageBot.cs" />
         <Compile Include="Chat.cs" />
         <Compile Include="HomeModule.cs" />
         <Compile Include="Models\ChatMessage.cs" />
