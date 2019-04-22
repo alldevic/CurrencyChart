@@ -7,7 +7,7 @@ namespace CurrencyChart.Core
     {
         public void InitChartData()
         {
-            var lineChart = new LineChart();
+            var lineChart = new ChartNode();
             lineChart.SetLineChartData();
             Clients.All.UpdateChart(lineChart);
         }

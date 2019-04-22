@@ -1,5 +1,4 @@
 using System;
-using System.Security.Cryptography;
 using System.Threading;
 using System.Web.Hosting;
 using Microsoft.AspNet.SignalR;
@@ -7,39 +6,20 @@ using Newtonsoft.Json;
 
 namespace CurrencyChart.Core
 {
-    public class RandomNumberGenerator
+    public static class RandomNumberGenerator
     {
-        static Random rnd1 = new Random();
+        static readonly Random Rnd1 = new Random();
 
-        public static int randomScalingFactor()
-        {
-            return rnd1.Next(100);
-        }
-
-        public static int randomColorFactor()
-        {
-            return rnd1.Next(255);
-        }
+        public static int RandomScalingFactor() => Rnd1.Next(10);
     }
 
-    public class LineChart
+    public class ChartNode
     {
-        [JsonProperty("lineChartData")] private int[] _lineChartData;
-        [JsonProperty("colorString")] private string _colorString;
+        [JsonProperty("lineChartData")] private int _lineChartData;
 
         public void SetLineChartData()
         {
-            _lineChartData = new int[100];
-
-            for (int i = 0; i < 100; i++)
-            {
-                _lineChartData[i] = RandomNumberGenerator.randomScalingFactor();
-            }
-
-
-            _colorString = "rgba(" + RandomNumberGenerator.randomColorFactor() + "," +
-                           RandomNumberGenerator.randomColorFactor() + "," + RandomNumberGenerator.randomColorFactor() +
-                           ",.3)";
+            _lineChartData = RandomNumberGenerator.RandomScalingFactor();
         }
     }
 
@@ -48,8 +28,8 @@ namespace CurrencyChart.Core
         private readonly IHubContext _chartHub;
         private Timer _timer;
         private volatile bool _sendingChartData;
-        private readonly object _chartUpateLock = new object();
-        LineChart lineChart = new LineChart();
+        private readonly object _chartUpdateLock = new object();
+        private readonly ChartNode _chartNode = new ChartNode();
 
         public ChartDataUpdate()
         {
@@ -59,10 +39,10 @@ namespace CurrencyChart.Core
 
         private void StartTimer()
         {
-            var delayStartby = TimeSpan.FromSeconds(2);
-            var repeatEvery = TimeSpan.FromSeconds(5);
+            var delayStandby = TimeSpan.FromSeconds(1);
+            var repeatEvery = TimeSpan.FromMilliseconds(500);
 
-            _timer = new Timer(BroadcastDataToClients, null, delayStartby, repeatEvery);
+            _timer = new Timer(BroadcastDataToClients, null, delayStandby, repeatEvery);
         }
 
         private void BroadcastDataToClients(object state)
@@ -72,7 +52,7 @@ namespace CurrencyChart.Core
                 return;
             }
 
-            lock (_chartUpateLock)
+            lock (_chartUpdateLock)
             {
                 if (_sendingChartData)
                 {
@@ -80,8 +60,8 @@ namespace CurrencyChart.Core
                 }
 
                 _sendingChartData = true;
-                lineChart.SetLineChartData();
-                _chartHub.Clients.All.updateChart(lineChart);
+                _chartNode.SetLineChartData();
+                _chartHub.Clients.All.updateChart(_chartNode);
                 _sendingChartData = false;
             }
         }
