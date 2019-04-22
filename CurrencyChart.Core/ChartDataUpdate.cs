@@ -1,5 +1,4 @@
 using System;
-using System.Security.Cryptography;
 using System.Threading;
 using System.Web.Hosting;
 using Microsoft.AspNet.SignalR;
@@ -7,15 +6,11 @@ using Newtonsoft.Json;
 
 namespace CurrencyChart.Core
 {
-    public class RandomNumberGenerator
+    public static class RandomNumberGenerator
     {
-        static Random rnd1 = new Random();
+        static readonly Random Rnd1 = new Random();
 
-        public static int randomScalingFactor()
-        {
-            return rnd1.Next(10);
-        }
-
+        public static int RandomScalingFactor() => Rnd1.Next(10);
     }
 
     public class ChartNode
@@ -24,7 +19,7 @@ namespace CurrencyChart.Core
 
         public void SetLineChartData()
         {
-            _lineChartData = RandomNumberGenerator.randomScalingFactor();
+            _lineChartData = RandomNumberGenerator.RandomScalingFactor();
         }
     }
 
@@ -33,8 +28,8 @@ namespace CurrencyChart.Core
         private readonly IHubContext _chartHub;
         private Timer _timer;
         private volatile bool _sendingChartData;
-        private readonly object _chartUpateLock = new object();
-        ChartNode _chartNode = new ChartNode();
+        private readonly object _chartUpdateLock = new object();
+        private readonly ChartNode _chartNode = new ChartNode();
 
         public ChartDataUpdate()
         {
@@ -44,10 +39,10 @@ namespace CurrencyChart.Core
 
         private void StartTimer()
         {
-            var delayStartby = TimeSpan.FromSeconds(1);
+            var delayStandby = TimeSpan.FromSeconds(1);
             var repeatEvery = TimeSpan.FromMilliseconds(500);
 
-            _timer = new Timer(BroadcastDataToClients, null, delayStartby, repeatEvery);
+            _timer = new Timer(BroadcastDataToClients, null, delayStandby, repeatEvery);
         }
 
         private void BroadcastDataToClients(object state)
@@ -57,7 +52,7 @@ namespace CurrencyChart.Core
                 return;
             }
 
-            lock (_chartUpateLock)
+            lock (_chartUpdateLock)
             {
                 if (_sendingChartData)
                 {
