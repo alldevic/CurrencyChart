@@ -13,6 +13,7 @@
     $(function () {
         var chartHub = $.connection.chart;
 
+        
         $.connection.hub.start().done(function () {
             chartHub.server.initChartData();
         });
@@ -22,6 +23,10 @@
             chart = new Chart(ctx, lineChartData),
             chartDatas = chart.data.datasets;
 
+        chartHub.client.addMessage = function (time, message) {
+            $('#messages').append('<tr><td>' + time + '</td><td>'+ message + '</td></tr>');
+        };
+        
         chartHub.client.updateChart = function (data) {
 
             chartDatas[0].data.push(data.lineChartData[0]);
@@ -58,8 +63,35 @@
         }
     }
 </script>
-<div class="chart-container" style="position: relative; height:40vh; width:80vw">
-    <canvas id="lineCanvas"></canvas>
-</div>
+
+
+
+<table style="width: 100%">
+    <tr>
+        <td style="width: 75%; text-align: center">
+            <canvas id="lineCanvas" height="200" width="400">Chart is Loading...</canvas>
+        </td>
+        <td style="width: 25%; text-align: center">
+            <div style="overflow: scroll; height: 800px">
+                <table border="1" id="messages">
+                    <thead>
+                    <tr>
+                        <td><b>Time</b></td>
+                        <td><b>Message</b></td>
+                    </tr>
+                    </thead>
+
+                    @Each.Messages
+                    <tr>
+                        <td>@Current.Created</td>
+                        <td>@Current.Message</td>
+                    </tr>
+                    @EndEach
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+
 </body>
 </html>

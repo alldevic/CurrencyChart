@@ -27,7 +27,7 @@ namespace CurrencyChart.Core
             GlobalHost.DependencyResolver = new DefaultDependencyResolver();
             GlobalHost.DependencyResolver.Register(typeof(Chat), () => new Chat(_documentStore));
             GlobalHost.DependencyResolver.Register(typeof(Chart), () => new Chart(_documentStore));
-            HostingEnvironment.RegisterObject(new ChartDataUpdate());
+            HostingEnvironment.RegisterObject(new ChartDataUpdate(_documentStore));
             var sampleBootstrapper = new SampleBootstrapper(_documentStore);
 
             app
