@@ -12,7 +12,7 @@ namespace CurrencyChart.Core
         {
             Get["/"] = _ =>
             {
-                var messages = documentStore.Fetch<ChatMessage>().OrderBy(d => d.Created);
+                var messages = documentStore.Fetch<ChatMessage>().OrderBy(d => d.Created).ToList();
                 var model = new MessageLog(messages
                     .Skip(Math.Max(0, messages.Count() - 10))
                     .ToList());
