@@ -330,4 +330,5 @@ ASALocalRun/
 .mfractor/
 
 CurrencyChart.Core/Scripts/
+CurrencyChart.Core/Content/
 *.zip

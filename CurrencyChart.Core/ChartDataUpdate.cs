@@ -1,7 +1,10 @@
 using System;
 using System.Threading;
 using System.Web.Hosting;
+using CurrencyChart.Core.Models;
+using LiteDB;
 using Microsoft.AspNet.SignalR;
+using Nancy.TinyIoc;
 using Newtonsoft.Json;
 
 namespace CurrencyChart.Core
@@ -26,6 +29,8 @@ namespace CurrencyChart.Core
                 RandomNumberGenerator.RandomScalingFactor()
             };
         }
+
+        public override string ToString() => JsonConvert.SerializeObject(_lineChartData);
     }
 
     public class ChartDataUpdate : IRegisteredObject
@@ -35,9 +40,11 @@ namespace CurrencyChart.Core
         private volatile bool _sendingChartData;
         private readonly object _chartUpdateLock = new object();
         private readonly ChartNode _chartNode = new ChartNode();
-
-        public ChartDataUpdate()
+        private readonly LiteRepository _documentStore;
+        
+        public ChartDataUpdate(LiteRepository documentStore)
         {
+            _documentStore = documentStore;
             _chartHub = GlobalHost.ConnectionManager.GetHubContext<Chart>();
             StartTimer();
         }
@@ -45,7 +52,7 @@ namespace CurrencyChart.Core
         private void StartTimer()
         {
             var delayStandby = TimeSpan.FromSeconds(1);
-            var repeatEvery = TimeSpan.FromMilliseconds(500);
+            var repeatEvery = TimeSpan.FromSeconds(2);
 
             _timer = new Timer(BroadcastDataToClients, null, delayStandby, repeatEvery);
         }
@@ -67,6 +74,10 @@ namespace CurrencyChart.Core
                 _sendingChartData = true;
                 _chartNode.SetLineChartData();
                 _chartHub.Clients.All.updateChart(_chartNode);
+                var time = DateTime.UtcNow;
+                _chartHub.Clients.All.addMessage(time, _chartNode.ToString());
+                
+                _documentStore.Insert(new ChatMessage {Created = time, Message = _chartNode.ToString()});
                 _sendingChartData = false;
             }
         }
