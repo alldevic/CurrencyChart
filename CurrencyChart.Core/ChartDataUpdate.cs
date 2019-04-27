@@ -4,7 +4,6 @@ using System.Web.Hosting;
 using CurrencyChart.Core.Models;
 using LiteDB;
 using Microsoft.AspNet.SignalR;
-using Nancy.TinyIoc;
 using Newtonsoft.Json;
 
 namespace CurrencyChart.Core
