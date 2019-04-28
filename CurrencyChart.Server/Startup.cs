@@ -1,6 +1,7 @@
 using System;
 using System.Web.Hosting;
-using CurrencyChart.Core;
+using CurrencyChart.Server;
+using CurrencyChart.Server.Hubs;
 using LiteDB;
 using Microsoft.AspNet.SignalR;
 using Microsoft.Owin;
@@ -12,7 +13,7 @@ using Owin;
 
 [assembly: OwinStartup(typeof(Startup))]
 
-namespace CurrencyChart.Core
+namespace CurrencyChart.Server
 {
     public class Startup
     {

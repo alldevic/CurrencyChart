@@ -329,6 +329,7 @@ ASALocalRun/
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
 
-CurrencyChart.Core/Scripts/
-CurrencyChart.Core/Content/
+CurrencyChart.jsClient/Scripts/
+CurrencyChart.jsClient/Content/
+
 *.zip

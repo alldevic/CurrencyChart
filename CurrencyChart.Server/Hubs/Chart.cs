@@ -1,9 +1,9 @@
 using System;
-using CurrencyChart.Core.Models;
+using CurrencyChart.Server.Models;
 using LiteDB;
 using Microsoft.AspNet.SignalR;
 
-namespace CurrencyChart.Core
+namespace CurrencyChart.Server.Hubs
 {
     public class Chart : Hub
     {

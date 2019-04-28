@@ -1,6 +1,6 @@
 ﻿using Topshelf;
 
-namespace CurrencyChart.Topshelf
+namespace CurrencyChart.SelfHost
 {
     internal class Program
     {

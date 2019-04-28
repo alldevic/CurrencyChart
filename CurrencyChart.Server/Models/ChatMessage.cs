@@ -1,6 +1,6 @@
 using System;
 
-namespace CurrencyChart.Core.Models
+namespace CurrencyChart.Server.Models
 {
     public class ChatMessage
     {
