@@ -20,15 +20,11 @@ platform:
 configuration:
     - Release
 
-environment:
-    matrix:
-        - TOOLCHAIN: msvc14
-
 before_build:
-    - nuget restore
+    - nuget restore -verbosity quiet
 
-build_script:
-    - msbuild /p:Configuration=Release
+build:
+    verbosity: minimal
 
 artifacts:
   - path: CurrencyChart.zip
