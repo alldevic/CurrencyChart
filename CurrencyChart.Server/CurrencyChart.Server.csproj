@@ -103,7 +103,7 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="ChartDataUpdate.cs" />
-        <Compile Include="Hubs\Chart.cs" />
+        <Compile Include="Hubs\ChartHub.cs" />
         <Compile Include="Models\ChatMessage.cs" />
         <Compile Include="Models\MessageLog.cs" />
         <Compile Include="Modules\HomeModule.cs" />
@@ -113,6 +113,12 @@
     </ItemGroup>
     <ItemGroup>
       <None Include="packages.config" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\CurrencyChart.JsClient\CurrencyChart.JsClient.csproj">
+        <Project>{d977ef02-d94f-4fae-aebf-ccec7ddeff0c}</Project>
+        <Name>CurrencyChart.JsClient</Name>
+      </ProjectReference>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -45,7 +45,7 @@ namespace CurrencyChart.Server
         public ChartDataUpdate(LiteRepository documentStore)
         {
             _documentStore = documentStore;
-            _chartHub = GlobalHost.ConnectionManager.GetHubContext<Chart>();
+            _chartHub = GlobalHost.ConnectionManager.GetHubContext<ChartHub>();
             StartTimer();
         }
 
