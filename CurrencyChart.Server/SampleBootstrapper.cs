@@ -2,7 +2,7 @@ using LiteDB;
 using Nancy;
 using Nancy.TinyIoc;
 
-namespace CurrencyChart.Core
+namespace CurrencyChart.Server
 {
     public class SampleBootstrapper : DefaultNancyBootstrapper
     {

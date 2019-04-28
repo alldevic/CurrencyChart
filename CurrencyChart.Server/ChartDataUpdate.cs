@@ -1,13 +1,13 @@
 using System;
 using System.Threading;
 using System.Web.Hosting;
-using CurrencyChart.Core.Models;
+using CurrencyChart.Server.Hubs;
+using CurrencyChart.Server.Models;
 using LiteDB;
 using Microsoft.AspNet.SignalR;
-using Nancy.TinyIoc;
 using Newtonsoft.Json;
 
-namespace CurrencyChart.Core
+namespace CurrencyChart.Server
 {
     public static class RandomNumberGenerator
     {

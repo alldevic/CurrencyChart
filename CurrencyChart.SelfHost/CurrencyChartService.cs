@@ -1,7 +1,7 @@
 using System;
-using CurrencyChart.Core;
+using CurrencyChart.Server;
 
-namespace CurrencyChart.Topshelf
+namespace CurrencyChart.SelfHost
 {
     public class CurrencyChartService
     {

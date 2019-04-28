@@ -1,9 +1,11 @@
 using System;
 using System.Web.Hosting;
-using CurrencyChart.Core;
+using CurrencyChart.Server;
+using CurrencyChart.Server.Hubs;
 using LiteDB;
 using Microsoft.AspNet.SignalR;
 using Microsoft.Owin;
+using Microsoft.Owin.Cors;
 using Microsoft.Owin.FileSystems;
 using Microsoft.Owin.Hosting;
 using Microsoft.Owin.StaticFiles;
@@ -11,7 +13,7 @@ using Owin;
 
 [assembly: OwinStartup(typeof(Startup))]
 
-namespace CurrencyChart.Core
+namespace CurrencyChart.Server
 {
     public class Startup
     {
@@ -35,7 +37,14 @@ namespace CurrencyChart.Core
                     RequestPath = new PathString("/scripts"),
                     FileSystem = new PhysicalFileSystem("scripts")
                 })
-                .MapSignalR()
+            
+                .Map("/signalr", map =>
+                {
+ 
+                    map.UseCors(CorsOptions.AllowAll);
+                    var hubConfiguration = new HubConfiguration();
+                    map.RunSignalR(hubConfiguration);
+                })
                 .UseNancy(cfg => cfg.Bootstrapper = sampleBootstrapper);
         }
 
