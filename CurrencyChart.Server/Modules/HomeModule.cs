@@ -15,7 +15,7 @@ namespace CurrencyChart.Server.Modules
             {
                 if (!File.Exists("views/chart.html"))
                 {
-                    return "JsClient not found!";
+                    return HttpStatusCode.NotFound;
                 }
 
                 var messages = documentStore.Fetch<ChatMessage>().OrderBy(d => d.Created).ToList();
