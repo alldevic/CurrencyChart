@@ -9,18 +9,16 @@
 </head>
 
 <body>
-
-
 <nav class="navbar navbar-expand-md navbar-light">
     <div class="container">
         <button class="navbar-toggler navbar-toggler-right border-0" type="button"
                 data-toggle="collapse" data-target="#navbar7">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbar7"><a class="navbar-brand text-primary d-none d-md-block"
-                                                              href="#">
-            <b>CurrencyChart</b>
-        </a>
+        <div class="collapse navbar-collapse" id="navbar7">
+            <span class="navbar-brand text-primary d-none d-md-block btn">
+                <b>CurrencyChart</b>
+            </span>
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item nav-link btn" data-bind="click: setRubUsd, text: rubUsdText"></li>
                 <li class="nav-item nav-link btn" data-bind="click: setRubEur, text: rubEurText"></li>
@@ -37,11 +35,11 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                    <h4 class="card-header" data-bind="text: currentCourse"></h4>
+                <h4 class="card-header" data-bind="text: currentCourse"></h4>
                 <div class="card-body">
 
                     <canvas id="lineCanvas">Chart is Loading...</canvas>
-                    
+
                     <div class="table-responsive">
                         <table class="table table-striped table-borderless table-sm" id="log">
                             <thead>
