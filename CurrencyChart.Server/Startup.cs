@@ -2,6 +2,7 @@ using System;
 using System.Web.Hosting;
 using CurrencyChart.Server;
 using CurrencyChart.Server.Hubs;
+using CurrencyChart.Server.Services;
 using LiteDB;
 using Microsoft.AspNet.SignalR;
 using Microsoft.Owin;
@@ -28,8 +29,10 @@ namespace CurrencyChart.Server
         {
             GlobalHost.DependencyResolver = new DefaultDependencyResolver();
             GlobalHost.DependencyResolver.Register(typeof(ChartHub), () => new ChartHub(_documentStore));
-            HostingEnvironment.RegisterObject(new ChartDataUpdate(_documentStore));
-            var sampleBootstrapper = new SampleBootstrapper(_documentStore);
+            
+            HostingEnvironment.RegisterObject(new DataUpdateService(_documentStore));
+            
+            var sampleBootstrapper = new DefaultBootstrapper(_documentStore);
 
             app
                 .UseFileServer(new FileServerOptions

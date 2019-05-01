@@ -1,5 +1,6 @@
 using System;
 using CurrencyChart.Server.Models;
+using CurrencyChart.Server.Services;
 using LiteDB;
 using Microsoft.AspNet.SignalR;
 
