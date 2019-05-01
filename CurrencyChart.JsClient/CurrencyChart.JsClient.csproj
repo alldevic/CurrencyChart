@@ -32,7 +32,10 @@
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
-      <Content Include="CodeBehind\counter.js">
+      <Content Include="index.html">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="CodeBehind\IndexVM.js">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
       <Content Include="Content\bootstrap-grid.css" />
@@ -41,9 +44,6 @@
       <Content Include="Content\bootstrap-reboot.min.css" />
       <Content Include="Content\bootstrap.css" />
       <Content Include="Content\bootstrap.min.css">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-      <Content Include="counter.html">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
       <Content Include="Scripts\bootstrap.bundle.js" />
@@ -87,9 +87,6 @@
       <Content Include="Scripts\umd\popper-utils.min.js" />
       <Content Include="Scripts\umd\popper.js" />
       <Content Include="Scripts\umd\popper.min.js" />
-      <Content Include="Views\chart.html">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
     </ItemGroup>
     <ItemGroup>
       <None Include="Content\bootstrap-grid.css.map" />

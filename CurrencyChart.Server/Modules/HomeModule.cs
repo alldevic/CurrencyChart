@@ -13,7 +13,7 @@ namespace CurrencyChart.Server.Modules
         {
             Get("/", _ =>
             {
-                if (!File.Exists("views/chart.html"))
+                if (!File.Exists("index.html"))
                 {
                     return HttpStatusCode.NotFound;
                 }
@@ -21,10 +21,8 @@ namespace CurrencyChart.Server.Modules
                 var messages = documentStore.Fetch<ChatMessage>().OrderBy(d => d.Created).ToList();
                 var model = new MessageLog(messages.Skip(Math.Max(0, messages.Count() - 10)).ToList());
 
-                return View["views/chart.html", model];
+                return View["index.html", model];
             });
-
-            Get("/counter", _ => View["counter.html"]);
         }
     }
 }
