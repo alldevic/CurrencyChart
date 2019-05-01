@@ -5,35 +5,10 @@ using CurrencyChart.Server.Hubs;
 using CurrencyChart.Server.Models;
 using LiteDB;
 using Microsoft.AspNet.SignalR;
-using Newtonsoft.Json;
 
-namespace CurrencyChart.Server
+namespace CurrencyChart.Server.Services
 {
-    public static class RandomNumberGenerator
-    {
-        static readonly Random Rnd1 = new Random();
-
-        public static int RandomScalingFactor() => Rnd1.Next(10);
-    }
-
-    public class ChartNode
-    {
-        [JsonProperty("lineChartData")] private int[] _lineChartData;
-
-        public void SetLineChartData()
-        {
-            _lineChartData = new[]
-            {
-                RandomNumberGenerator.RandomScalingFactor(),
-                RandomNumberGenerator.RandomScalingFactor(),
-                RandomNumberGenerator.RandomScalingFactor()
-            };
-        }
-
-        public override string ToString() => JsonConvert.SerializeObject(_lineChartData);
-    }
-
-    public class ChartDataUpdate : IRegisteredObject
+    public class DataUpdateService : IRegisteredObject
     {
         private readonly IHubContext _chartHub;
         private Timer _timer;
@@ -42,10 +17,10 @@ namespace CurrencyChart.Server
         private readonly ChartNode _chartNode = new ChartNode();
         private readonly LiteRepository _documentStore;
         
-        public ChartDataUpdate(LiteRepository documentStore)
+        public DataUpdateService(LiteRepository documentStore)
         {
             _documentStore = documentStore;
-            _chartHub = GlobalHost.ConnectionManager.GetHubContext<Chart>();
+            _chartHub = GlobalHost.ConnectionManager.GetHubContext<ChartHub>();
             StartTimer();
         }
 

@@ -4,11 +4,11 @@ using Nancy.TinyIoc;
 
 namespace CurrencyChart.Server
 {
-    public class SampleBootstrapper : DefaultNancyBootstrapper
+    public class DefaultBootstrapper : DefaultNancyBootstrapper
     {
         private readonly LiteRepository _documentStore;
 
-        public SampleBootstrapper(LiteRepository documentStore)
+        public DefaultBootstrapper(LiteRepository documentStore)
         {
             _documentStore = documentStore;
         }

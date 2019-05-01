@@ -80,10 +80,6 @@
         </Content>
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\CurrencyChart.JsClient\CurrencyChart.JsClient.csproj">
-        <Project>{d977ef02-d94f-4fae-aebf-ccec7ddeff0c}</Project>
-        <Name>CurrencyChart.JsClient</Name>
-      </ProjectReference>
       <ProjectReference Include="..\CurrencyChart.Server\CurrencyChart.Server.csproj">
         <Project>{ec23e3c5-a06e-4aaa-a817-80ae05bc79fa}</Project>
         <Name>CurrencyChart.Server</Name>

@@ -32,6 +32,12 @@
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
+      <Content Include="index.html">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="CodeBehind\IndexVM.js">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
       <Content Include="Content\bootstrap-grid.css" />
       <Content Include="Content\bootstrap-grid.min.css" />
       <Content Include="Content\bootstrap-reboot.css" />
@@ -66,6 +72,10 @@
       <Content Include="Scripts\jquery.signalR-2.4.1.min.js">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
+      <Content Include="Scripts\knockout-3.5.0.debug.js" />
+      <Content Include="Scripts\knockout-3.5.0.js">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
       <Content Include="Scripts\popper-utils.js" />
       <Content Include="Scripts\popper-utils.min.js" />
       <Content Include="Scripts\popper.js" />
@@ -77,9 +87,6 @@
       <Content Include="Scripts\umd\popper-utils.min.js" />
       <Content Include="Scripts\umd\popper.js" />
       <Content Include="Scripts\umd\popper.min.js" />
-      <Content Include="Views\chart.html">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
     </ItemGroup>
     <ItemGroup>
       <None Include="Content\bootstrap-grid.css.map" />

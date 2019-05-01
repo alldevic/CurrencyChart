@@ -1,15 +1,16 @@
 using System;
 using CurrencyChart.Server.Models;
+using CurrencyChart.Server.Services;
 using LiteDB;
 using Microsoft.AspNet.SignalR;
 
 namespace CurrencyChart.Server.Hubs
 {
-    public class Chart : Hub
+    public class ChartHub : Hub
     {
         private readonly LiteRepository _documentStore;
 
-        public Chart(LiteRepository documentStore)
+        public ChartHub(LiteRepository documentStore)
         {
             _documentStore = documentStore;
         }

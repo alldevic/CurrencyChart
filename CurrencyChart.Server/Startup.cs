@@ -2,6 +2,7 @@ using System;
 using System.Web.Hosting;
 using CurrencyChart.Server;
 using CurrencyChart.Server.Hubs;
+using CurrencyChart.Server.Services;
 using LiteDB;
 using Microsoft.AspNet.SignalR;
 using Microsoft.Owin;
@@ -9,7 +10,9 @@ using Microsoft.Owin.Cors;
 using Microsoft.Owin.FileSystems;
 using Microsoft.Owin.Hosting;
 using Microsoft.Owin.StaticFiles;
+using Newtonsoft.Json;
 using Owin;
+using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 [assembly: OwinStartup(typeof(Startup))]
 
@@ -27,9 +30,19 @@ namespace CurrencyChart.Server
         public void Configuration(IAppBuilder app)
         {
             GlobalHost.DependencyResolver = new DefaultDependencyResolver();
-            GlobalHost.DependencyResolver.Register(typeof(Chart), () => new Chart(_documentStore));
-            HostingEnvironment.RegisterObject(new ChartDataUpdate(_documentStore));
-            var sampleBootstrapper = new SampleBootstrapper(_documentStore);
+            
+            var serializer = new JsonSerializer()
+            {
+                DateTimeZoneHandling = DateTimeZoneHandling.Local,
+                DateFormatString = "dd.MM.yyyy hh:mm:ss"
+                
+            };
+            GlobalHost.DependencyResolver.Register(typeof(JsonSerializer), () => serializer);
+            GlobalHost.DependencyResolver.Register(typeof(ChartHub), () => new ChartHub(_documentStore));
+            
+            HostingEnvironment.RegisterObject(new DataUpdateService(_documentStore));
+            
+            var sampleBootstrapper = new DefaultBootstrapper(_documentStore);
 
             app
                 .UseFileServer(new FileServerOptions
@@ -37,10 +50,13 @@ namespace CurrencyChart.Server
                     RequestPath = new PathString("/scripts"),
                     FileSystem = new PhysicalFileSystem("scripts")
                 })
-            
+                .UseFileServer(new FileServerOptions
+                {
+                    RequestPath = new PathString("/codebehind"),
+                    FileSystem = new PhysicalFileSystem("codebehind")
+                })
                 .Map("/signalr", map =>
                 {
- 
                     map.UseCors(CorsOptions.AllowAll);
                     var hubConfiguration = new HubConfiguration();
                     map.RunSignalR(hubConfiguration);
