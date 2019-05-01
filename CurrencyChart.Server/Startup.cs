@@ -37,10 +37,13 @@ namespace CurrencyChart.Server
                     RequestPath = new PathString("/scripts"),
                     FileSystem = new PhysicalFileSystem("scripts")
                 })
-            
+                .UseFileServer(new FileServerOptions
+                {
+                    RequestPath = new PathString("/codebehind"),
+                    FileSystem = new PhysicalFileSystem("codebehind")
+                })
                 .Map("/signalr", map =>
                 {
- 
                     map.UseCors(CorsOptions.AllowAll);
                     var hubConfiguration = new HubConfiguration();
                     map.RunSignalR(hubConfiguration);

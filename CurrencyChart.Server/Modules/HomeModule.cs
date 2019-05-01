@@ -23,6 +23,8 @@ namespace CurrencyChart.Server.Modules
 
                 return View["views/chart.html", model];
             });
+
+            Get("/counter", _ => View["counter.html"]);
         }
     }
 }
