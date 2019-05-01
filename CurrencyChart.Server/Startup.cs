@@ -10,7 +10,9 @@ using Microsoft.Owin.Cors;
 using Microsoft.Owin.FileSystems;
 using Microsoft.Owin.Hosting;
 using Microsoft.Owin.StaticFiles;
+using Newtonsoft.Json;
 using Owin;
+using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 [assembly: OwinStartup(typeof(Startup))]
 
@@ -28,6 +30,14 @@ namespace CurrencyChart.Server
         public void Configuration(IAppBuilder app)
         {
             GlobalHost.DependencyResolver = new DefaultDependencyResolver();
+            
+            var serializer = new JsonSerializer()
+            {
+                DateTimeZoneHandling = DateTimeZoneHandling.Local,
+                DateFormatString = "dd.MM.yyyy hh:mm:ss"
+                
+            };
+            GlobalHost.DependencyResolver.Register(typeof(JsonSerializer), () => serializer);
             GlobalHost.DependencyResolver.Register(typeof(ChartHub), () => new ChartHub(_documentStore));
             
             HostingEnvironment.RegisterObject(new DataUpdateService(_documentStore));
