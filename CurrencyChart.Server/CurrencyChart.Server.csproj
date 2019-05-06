@@ -104,6 +104,7 @@
     <ItemGroup>
         <Compile Include="Hubs\ChartHub.cs" />
         <Compile Include="Models\ChatMessage.cs" />
+        <Compile Include="Models\InitData.cs" />
         <Compile Include="Models\MessageLog.cs" />
         <Compile Include="Modules\HomeModule.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
