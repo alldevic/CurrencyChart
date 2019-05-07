@@ -22,6 +22,7 @@ $(function () {
 
     vm.setLabel = function (text) {
         vm.currentCourse(text);
+        chartHub.server.fetchExchangeData(text);
     };
 
     ko.applyBindings(vm);
@@ -53,14 +54,74 @@ $(function () {
     chartHub.client.getInitData = function (data) {
         vm.exchanges(data.exchanges);
         vm.currentCourse(data.defaultCourse);
+        vm.logCount(data.logCount);
+        vm.lineCount(data.lineCount);
         vm.providers(data.providers);
         data.providers.forEach((value, index) => {
-            chartSets.push({label: value, data: [], fill: false, borderColor: default_colors[index]});
+            chartSets.push({
+                label: value,
+                data: data.dataValuesInit[value],
+                fill: false,
+                borderColor: default_colors[index]
+            });
+        });
+
+        data.shortTimesInit.forEach(value => {
+            chart.data.labels.push(value);
         });
 
         vm.providers.unshift('#');
-        vm.logCount(data.logCount);
-        vm.lineCount(data.lineCount);
+
+        data.timesInit.forEach((value, index) => {
+            let tmp = [];
+            tmp.push(value);
+
+            Object.keys(data.dataValuesInit).forEach(function (key) {
+                tmp.push(data.dataValuesInit[key][index]);
+
+            });
+            vm.logData.unshift({values: tmp});
+
+        });
+
+        chart.update();
+    };
+
+    chartHub.client.getExchangeData = function (data) {
+        vm.logData.removeAll();
+        chartSets.splice(0, chartSets.length);
+        chart.data.labels = [];
+        chart.update();
+        vm.providers(data.providers);
+        
+        data.providers.forEach((value, index) => {
+            chartSets.push({
+                label: value,
+                data: data.dataValuesInit[value],
+                fill: false,
+                borderColor: default_colors[index]
+            });
+        });
+
+        data.shortTimesInit.forEach(value => {
+            chart.data.labels.push(value);
+        });
+
+        vm.providers.unshift('#');
+
+        data.timesInit.forEach((value, index) => {
+            let tmp = [];
+            tmp.push(value);
+
+            Object.keys(data.dataValuesInit).forEach(function (key) {
+                tmp.push(data.dataValuesInit[key][index]);
+
+            });
+            vm.logData.unshift({values: tmp});
+
+        });
+        
+        chart.update();
     };
 
     chartHub.client.addMessage = function (time, message) {
@@ -79,7 +140,7 @@ $(function () {
             chartSets.forEach(value => value.data.splice(0, 1));
             chart.data.labels.splice(0, 1);
         }
-        
+
         chart.update();
     };
 });
