@@ -78,7 +78,7 @@
           <Private>True</Private>
         </Reference>
         <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c">
-          <HintPath>..\packages\NLog.4.6.2\lib\net45\NLog.dll</HintPath>
+          <HintPath>..\packages\NLog.4.6.3\lib\net45\NLog.dll</HintPath>
           <Private>True</Private>
         </Reference>
         <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5">
@@ -104,6 +104,7 @@
     <ItemGroup>
         <Compile Include="Hubs\ChartHub.cs" />
         <Compile Include="Models\ChatMessage.cs" />
+        <Compile Include="Models\InitData.cs" />
         <Compile Include="Models\MessageLog.cs" />
         <Compile Include="Modules\HomeModule.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
