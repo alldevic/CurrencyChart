@@ -45,7 +45,7 @@ namespace CurrencyChart.Server.Hubs
                 }
             };
 
-            Clients.All.getInitData(initData);
+            Clients.Caller.getInitData(initData);
         }
 
         public void FetchExchangeData(string exchangeCourse)
