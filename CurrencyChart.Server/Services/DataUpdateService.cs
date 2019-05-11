@@ -50,7 +50,8 @@ namespace CurrencyChart.Server.Services
                 _chartNode.SetLineChartData();
                 _chartHub.Clients.All.updateChart(_chartNode);
                 var time = DateTime.UtcNow;
-                _chartHub.Clients.All.addMessage(time, _chartNode.LineChartData);
+                var shorttime = time.ToString("mm:ss");
+                _chartHub.Clients.All.addMessage(time, shorttime, _chartNode.LineChartData);
                 
                 _documentStore.Insert(new ChatMessage {Created = time, Message = _chartNode.LineChartData});
                 _sendingChartData = false;

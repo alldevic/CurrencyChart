@@ -124,14 +124,14 @@ $(function () {
         chart.update();
     };
 
-    chartHub.client.addMessage = function (time, message) {
+    chartHub.client.addMessage = function (time, shorttime, message) {
         message.unshift(time);
         vm.logData.unshift({values: message});
         if (vm.logData().length > vm.logCount()) {
             vm.logData.pop();
         }
 
-        chart.data.labels.push(message[0]);
+        chart.data.labels.push(shorttime);
         for (let i = 1; i < message.length; i++) {
             chartSets[i - 1].data.push(message[i]);
         }
